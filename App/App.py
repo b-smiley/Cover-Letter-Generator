@@ -11,7 +11,9 @@ class Application:
     Application class for top-level logic
     """
 
-    def __init__(self) -> None:
+    def __init__(self, file="") -> None:
+        if file != "":
+            self.file = file
         self.TEMPLATE_PATH = "cover_letter_template.txt"
         self.output_path = self._usersDownloadFolder()
         self.context_placeholders: list = self._get_placeholders()

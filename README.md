@@ -4,12 +4,18 @@ A simple cover letter generator to help you automate your cover letter writing p
 
 - Developed by: [Brendan Smiley](https://github.com/b-smiley/)
 - License: MIT
+- GUI Preview
+  ![Main GUI](./documentation/gui.png)
+- Template Preview
+  ![Template Preview](./documentation/template.png)
 
 # Getting Started
 
 ## Downloading the application
 
-To get started, you can download the installer from the releases page [here](https://github.com/b-smiley/Cover-Letter-Generator/releases)
+🎵 NOTE 🎵 Releases are not current available but when they are,
+
+To get started, you can download the installer from the releases page.[here](https://github.com/b-smiley/Cover-Letter-Generator/releases)
 .
 
 🎵 NOTE 🎵 this application is **NOT** code signed meaning your Windows, Mac, or Linux operating system may block the application from running. Code signing costs hundreds of dollars for a 3rd-party to validate your code, which is why I have not code-signed this open-source application.
@@ -28,6 +34,12 @@ You can utilize the following list of special placeholder variables to help you 
 - `{{TodaysDate}}` - Current date in format `YYYY-MM-DD`
 - `{{YourName}} and {{CompanyName}}` - Autopopulates the file name as YourName_CompanyName.pdf
 - `{{*_Content}}` - Gives you a bigger text box to write your content
+
+# Building the application
+
+`pip install -r requirements.txt`
+`pip install pyinstaller`
+`python -m eel app.py web`
 
 # Contributing 🧑‍🤝‍🧑, Feature Requests ➕, Bugs 🐛
 
