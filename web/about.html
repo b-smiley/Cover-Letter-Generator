@@ -1,0 +1,113 @@
+<!-- web/about.html 
+Author: Brendan Smiley
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cover Letter Generator</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="./assets/favicon-16x16.png" type="image/png" />
+    <script type="text/javascript" src="/eel.js"></script>
+  </head>
+  <body>
+    <div class="menu-bar">
+      <a href="./index.html">Home</a>
+      <a href="./about.html">About</a>
+      <a href="./help.html">Help</a>
+    </div>
+    <div class="about-content">
+      <h1>Cover Letter Generator</h1>
+      <h2>Overview</h2>
+      <p>
+        This is a simple cover letter generator that allows you to input your
+        information and generate a cover letter. The cover letter is generated
+        in a PDF document format.
+      </p>
+      <h2>Goal of this application</h2>
+      <p>
+        The goal of this application was to find a way to automate the process
+        of creating cover letters. This application is designed to be simple and
+        easy to use.
+      </p>
+      <h2>How to Use</h2>
+      <p>
+        Create template file that has placeholder values for you to fill out.
+        The template file name should not be changed from
+        "cover_letter_template.txt". For a detail guide on each functionality
+        please refer to the
+        <span><a href="./help.html" class="no-visit">Help Page</a></span
+        >.
+      </p>
+      <h2>Features</h2>
+      <ul>
+        <li>Create a simple custom cover letter template</li>
+        <li>
+          Fill out your template information into a form that automatically
+          populates your cover letter.
+        </li>
+        <li>Save the cover letter to a file destination in .pdf format</li>
+        <li>
+          Spellcheck warnings to ensure that your cover letter is free of
+          spelling errors. (Still recommended to proofread)
+        </li>
+        <li>
+          Use special variables to perform additional automation
+          <ul>
+            <li>
+              Your_Name && Company_Name will be used to name the PDF file (if
+              not specified, the file will be named "cover_letter.pdf")
+            </li>
+            <li>
+              Todays_Date will be used to populate the date in the cover letter
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <h2>Reporting a Bug or Feature Requests</h2>
+      <p>
+        If you find a bug or have a feature request, please create an issue on
+        GitHub at, https://github.com/b-smiley/Cover-Letter-Generator.
+      </p>
+      <h2>License</h2>
+      <a
+        onclick="showLicenseDetails()"
+        style="cursor: pointer; text-decoration: underline"
+      >
+        This project is licensed under the MIT License
+      </a>
+      <p id="licenseDetails" style="display: none">
+        <span>Copyright 2024 Brendan Smiley <br /></span>
+        Permission is hereby granted, free of charge, to any person obtaining a
+        copy of this software and associated documentation files (the
+        “Software”), to deal in the Software without restriction, including
+        without limitation the rights to use, copy, modify, merge, publish,
+        distribute, sublicense, and/or sell copies of the Software, and to
+        permit persons to whom the Software is furnished to do so, subject to
+        the following conditions: The above copyright notice and this permission
+        notice shall be included in all copies or substantial portions of the
+        Software. THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY
+        KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+        MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+        IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+        CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+        TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+        SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+      </p>
+      <p>
+        see the https://opensource.org/license/mit for extra details details.
+      </p>
+    </div>
+    <script type="text/javascript">
+      function showLicenseDetails() {
+        var x = document.getElementById("licenseDetails");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+      }
+    </script>
+  </body>
+</html>

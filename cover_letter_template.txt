@@ -1,0 +1,17 @@
+{{Your_Name}}
+{{Your_City_Province_Country}}
+{{Email_Address}}
+{{Todays_Date}}
+
+{{Company_Name}}
+{{Company_Address}}
+
+
+
+Dear {{Employers_Name}},
+
+I am thrilled to be applying to {{Company_Name}} as a {{Role}} for {{Start_Date}}. Specifically, I am interested in {{Company_Name}} because of {{Specific_Company_Interest_Content}}. {{Extra_Company_Specific_Content}}.
+
+I believe I would be an excellent fit for {{Company_Name}} since I can learn quickly in new environments. Working at {{Previous_Company}} proves my ability to work multiple jobs at the same time. I plan to continue this work ethic throughout the future.
+
+Thank you for taking the time to review my resume, I look forward to hearing from you.

@@ -1,0 +1,146 @@
+<!-- web/index.html 
+Author: Brendan Smiley
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cover Letter Generator</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="./assets/favicon-16x16.png" type="image/png" />
+    <script type="text/javascript" src="/eel.js"></script>
+  </head>
+  <body>
+    <div class="menu-bar">
+        <a href="./index.html">Home</a>
+        <a href="./about.html">About</a>
+        <a href="./help.html">Help</a>
+      </ul>
+    </div>
+    <div class="main-content">
+      <h1 style="text-align: center;">Cover Letter Generator</h1>
+      <!-- 
+    File selection
+     -->
+      <div class="destination">
+        <button onclick="runTkDialog()">Select a File Destination</button>
+        <input type="text" id="outputPath" placeholder="File Destination" />
+      </div>
+      <form id="contextForm" class="contextForm">
+        <!-- Dynamic Population Here -->
+      </form>
+
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <p id="modalMessage"></p>
+        <span class="close">&times;</span>
+      </div>
+    </div>
+    <script type="text/javascript">
+      function runTkDialog() {
+        eel.file_dialog().then((outputPath) => {
+          document.getElementById("outputPath").value = outputPath;
+        });
+      }
+
+      function modal(message) {
+        let modal = document.getElementById("modal");
+        let modalMessage = document.getElementById("modalMessage");
+        modalMessage.innerHTML = message;
+        modal.style.display = "block";
+        let span = document.getElementsByClassName("close")[0];
+        span.onclick = function () {
+          modal.style.display = "none";
+          modalMessage.innerHTML = "";
+        };
+        window.onclick = function (event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+            modalMessage.innerHTML = "";
+          }
+        };
+      }
+
+      async function submitForm(e) {
+        // Do no remove the values from the form
+        e.preventDefault();
+
+        // Ensure required fields are filled out
+        let form = document.getElementById("contextForm");
+        if (!form.checkValidity()) {
+          modal("Please fill out all required fields");
+          return;
+        }
+
+        const formData = new FormData(document.getElementById("contextForm"));
+        const context = {};
+        formData.forEach((value, key) => {
+          context[key] = value;
+        });
+        let outputPath = document.getElementById("outputPath").value;
+        let response = await eel.submit_context(context, outputPath)();
+        if (response === "success") {
+          modal("Happy Job Hunting!");
+        } else {
+          modal("Error generating Cover Letter");
+        }
+      }
+
+      async function getPlaceholders(){
+        return await eel.get_context()();
+      }
+
+      /**
+       * Generate the form based on the placeholders
+       * There are a few special placeholders that can be used:
+       * - Your_Name and Company_Name will be used to name the PDF file (if not specified, the file will be named "cover_letter.pdf")
+       * - Todays_Date will be used to populate the date in the cover letter
+       * - If the placeholder ends with _Content, it will be a textarea instead of an input
+       * Therefore the Today's Date field should be hidden from the user
+       * The form fields send the placeholder name and the placeholder value to the backend
+       */
+      async function generateForm(){
+        let placeholders = await getPlaceholders();
+        console.log(placeholders);
+        for (const key in placeholders){
+          if (placeholders[key] === "Todays_Date"){
+            continue;
+          }
+
+          // Label
+          let label = document.createElement("label");
+          label.setAttribute("for", key);
+          label.innerHTML = placeholders[key];
+          document.getElementById("contextForm").appendChild(label);
+
+          // Input
+          let input = document.createElement("input");
+          
+          if (placeholders[key].endsWith("_Content")){
+            input = document.createElement("textarea");
+          }else{
+            input.setAttribute("type", "text");
+          }
+          input.setAttribute("id", key);
+          input.setAttribute("name", key);
+          input.required = false; // Last thing you needs is submitting a cover letter with
+          // a empty spot ;)
+          document.getElementById("contextForm").appendChild(input);
+
+        }
+        // Submit Button
+        let submitButton = document.createElement("button");
+        submitButton.setAttribute("type", "submit");
+        submitButton.setAttribute("onclick", "submitForm(event)");
+        submitButton.innerHTML = "Submit";
+        document.getElementById("contextForm").appendChild(submitButton);
+      }
+
+      // On load run
+      window.onload = function () {
+        generateForm();
+      };
+    </script>
+  </body>
+</html>
