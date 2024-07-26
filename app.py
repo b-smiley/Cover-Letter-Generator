@@ -7,10 +7,15 @@ Author: Brendan Smiley
 
 from App import Application
 
+# Required for eel to work with PyInstaller
+import sys, io
+
+buffer = io.StringIO()
+sys.stdout = sys.stderr = buffer
+
 
 def main():
     App = Application()
 
 
-if __name__ == "__main__":
-    main()
+main()
