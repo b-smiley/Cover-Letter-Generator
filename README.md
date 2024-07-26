@@ -5,8 +5,10 @@ A simple cover letter generator to help you automate your cover letter writing p
 - Developed by: [Brendan Smiley](https://github.com/b-smiley/)
 - License: MIT
 - GUI Preview
+  
   ![Main GUI](./documentation/gui.png)
 - Template Preview
+  
   ![Template Preview](./documentation/template.png)
 
 # Getting Started
