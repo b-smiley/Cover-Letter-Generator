@@ -15,7 +15,7 @@ class Application:
         self.TEMPLATE_PATH = "cover_letter_template.txt"
         self.output_path = self._usersDownloadFolder()
         self.context_placeholders: list = self._get_placeholders()
-        self.context: list = []
+        self.context: list = {}
         eel.init("web")
         self._expose_list(eel)
         eel.start("index.html", size=(600, 850))
@@ -65,9 +65,17 @@ class Application:
         folder = filedialog.askdirectory()
         return folder
 
-    def submit_context(self, context, output_path):
+    def submit_context(self, context: dict, output_path):
         try:
-            self.context = context
+            # frontend uses placeholder sfor keys, backend needs to use placeholders
+            for i in range(len(self.context_placeholders)):
+                if self.context_placeholders[i] == "Todays_Date":
+                    self.context[self.context_placeholders[i]] = PDF._get_date()
+                    continue
+                self.context[self.context_placeholders[i]] = context[
+                    f"{self.context_placeholders[i]}"
+                ]
+
             if output_path != "":
                 self.output_path = output_path
             pdf = PDF()

@@ -38,8 +38,8 @@ Author: Brendan Smiley
       </div>
     </div>
     <script type="text/javascript">
-      function runTkDialog() {
-        eel.file_dialog().then((outputPath) => {
+      async function runTkDialog() {
+        eel.file_dialog()().then((outputPath) => {
           document.getElementById("outputPath").value = outputPath;
         });
       }
@@ -102,33 +102,34 @@ Author: Brendan Smiley
        */
       async function generateForm(){
         let placeholders = await getPlaceholders();
-        console.log(placeholders);
-        for (const key in placeholders){
-          if (placeholders[key] === "Todays_Date"){
-            continue;
+        // Remove duplicates values
+        let uniquePlaceHolders = new Set(Object.values(placeholders));
+        console.log(uniquePlaceHolders);
+        uniquePlaceHolders.forEach((value) => {
+          if (value == "Todays_Date") {
+            // Hide the date field
+            return;
           }
-
           // Label
           let label = document.createElement("label");
-          label.setAttribute("for", key);
-          label.innerHTML = placeholders[key];
+          label.setAttribute("for", value);
+          label.innerHTML = value;
           document.getElementById("contextForm").appendChild(label);
 
           // Input
           let input = document.createElement("input");
           
-          if (placeholders[key].endsWith("_Content")){
+          if (value.endsWith("_Content")){
             input = document.createElement("textarea");
           }else{
             input.setAttribute("type", "text");
           }
-          input.setAttribute("id", key);
-          input.setAttribute("name", key);
-          input.required = false; // Last thing you needs is submitting a cover letter with
+          input.setAttribute("id", value);
+          input.setAttribute("name", value);
+          input.required = true; // Last thing you needs is submitting a cover letter with
           // a empty spot ;)
           document.getElementById("contextForm").appendChild(input);
-
-        }
+        });
         // Submit Button
         let submitButton = document.createElement("button");
         submitButton.setAttribute("type", "submit");

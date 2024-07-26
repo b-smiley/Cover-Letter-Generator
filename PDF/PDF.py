@@ -31,15 +31,17 @@ class PDF(FPDF):
         self.add_page()
         self.chapter_body(body)
 
-    def special_vars(self, context):
-        if "Today's_Date" in context:
+    def special_vars(self, context: dict):
+        if "Today's_Date" in context.keys():
             context["Today's_Date"] = self._get_date()
-        if "Your_Name" and "Company_Name" in context:
+        if "Your_Name" and "Company_Name" in context.keys():
             self.file_name = (
                 f"{context['Your_Name']}_{context['Company_Name']}_Cover_Letter.pdf"
             )
 
-    def create_cover_letter_pdf(self, template_path, output_path, context):
+    def create_cover_letter_pdf(
+        self, template_path: str, output_path: str, context: dict
+    ):
         template_content = ""
         self.special_vars(context)
         try:
