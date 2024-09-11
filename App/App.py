@@ -1,9 +1,12 @@
 from os import name as os_name
+import os
 from re import findall as re_findall
 from pathlib import Path
 from tkinter import Tk, filedialog
 import eel
 from PDF import PDF
+import subprocess
+import platform
 
 
 class Application:
@@ -15,7 +18,7 @@ class Application:
         if file != "":
             self.file = file
         self.TEMPLATE_PATH = "cover_letter_template.txt"
-        self.output_path = self._usersDownloadFolder()
+        self.output_path = self._user_download_folder()
         self.context_placeholders: list = self._get_placeholders()
         self.context: list = {}
         eel.init("web")
@@ -44,7 +47,7 @@ class Application:
             self.error_dialog("Error reading the template file", e)
             return
 
-    def _usersDownloadFolder(self):
+    def _user_download_folder(self):
         """
         Gets the current user's download folder.
         """
@@ -52,6 +55,17 @@ class Application:
             return str(Path.home() / "Downloads")  # Windows
         else:
             return str(Path.home() / "Downloads")
+
+    def _open_file_explorer(self, path: str):
+        """
+        Opens the file explorer to the output path.
+        """
+        if platform.system() == "Windows":
+            subprocess.Popen(f'explorer "{os.path.realpath(path)}"')
+        elif platform.system() == "Darwin":
+            subprocess.Popen(["open", path])
+        else:
+            subprocess.Popen(["xdg-open", path])
 
     # Routes
     def get_context(self):
@@ -84,6 +98,8 @@ class Application:
             pdf.create_cover_letter_pdf(
                 self.TEMPLATE_PATH, self.output_path, self.context
             )
+            self._open_file_explorer(self.output_path)
+
             return "success"
         except Exception as e:
             print(e)

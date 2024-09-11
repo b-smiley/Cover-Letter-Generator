@@ -24,7 +24,7 @@ class PDF(FPDF):
 
     def chapter_body(self, body):
         self.set_font("helvetica", "", 12)
-        self.multi_cell(0, 10, body)
+        self.multi_cell(0, 10, body, align="L")
         self.ln()
 
     def add_letter(self, title, body):
